@@ -2,23 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.hotel;
+package Libreria;
 
-/**
- *
- * @author Sebas
- */
-//import java.util.Scanner;
-
-import libreria.Cliente;
-//import libreria.cuartos;
-import libreria.GestorHabitaciones;
-import libreria.Habitacion;
-import libreria.HistorialHuspedes;
-import libreria.Hospedaje;
-
-
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Hotel {
     private static GestorHabitaciones gestorHabitaciones = new GestorHabitaciones();
@@ -31,102 +17,112 @@ public class Hotel {
         String opcionPass = "";
         int opcionmenu = 0;
         do {
-            opcionmenu = Integer.parseInt(JOptionPane.showInputDialog(
-                    "=== Menú de Mantenimiento de Habitaciones === \n" +
-                            "1. Ingresar contraseña\n" +
-                            "0. Salir\n" +
-                            "Seleccione una opción:"));
+            opcionmenu = JOptionPane.showOptionDialog(null,
+                    "=== Menú de Mantenimiento de Habitaciones ===",
+                    "Menú",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    new Object[]{"Ingresar contraseña", "Salir"},
+                    null);
 
             switch (opcionmenu) {
-                case 1:
+                case 0:
                     opcionPass = JOptionPane.showInputDialog("Ingrese la contraseña:");
-                    if (opcionPass.equals(Contraseña)) {
-                        // System.out.println("Acceso exitoso");
+                    if (opcionPass != null && opcionPass.equals(Contraseña)) {
                         JOptionPane.showMessageDialog(null, "Acceso exitoso");
                         MenuGeneral();
                     } else {
-                        // System.out.println("Contraseña incorrecta");
                         JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
                     }
                     break;
-                case 0:
+                case 1:
                     JOptionPane.showMessageDialog(null, "¡Hasta luego!");
                     break;
-                default:
+                case JOptionPane.CLOSED_OPTION:
                     JOptionPane.showMessageDialog(null, "Opción inválida. Intente nuevamente.");
+                    break;
             }
-        } while (opcionmenu != 0);
+        } while (opcionmenu != 1 && opcionmenu != JOptionPane.CLOSED_OPTION);
     }
-
+        
     private static void MenuGeneral() {
         int MenuGeneralOption = 0;
         do {
-            MenuGeneralOption = Integer.parseInt(JOptionPane.showInputDialog(
-                    "===    Hotel UTP    ===\n" +
+            MenuGeneralOption = JOptionPane.showOptionDialog(null,
+                    "=== Hotel UTP ===\n" +
                             "1. Modulo Habitaciones\n" +
                             "2. Modulo Clientes\n" +
                             "3. Modulo hospedaje\n" +
                             "0. Salir\n" +
-                            "Seleccione una opción: "));
-
+                            "Seleccione una opción:",
+                    "Menú General",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    new Object[]{"Modulo Habitaciones", "Modulo Clientes", "Modulo Hospedaje", "Salir"},
+                    null);
+    
             switch (MenuGeneralOption) {
-                case 1:
+                case 0:
                     mostrarMenuHabitaciones();
                     break;
-                case 2:
+                case 1:
                     mostrarMenuClientes();
                     break;
-                case 3:
+                case 2:
                     mostrarMenuHospedaje();
                     break;
-                case 0:
+                case 3:
                     JOptionPane.showMessageDialog(null, "¡Hasta luego!");
                     break;
-                default:
+                case JOptionPane.CLOSED_OPTION:
                     JOptionPane.showMessageDialog(null, "Opción inválida. Intente nuevamente.");
+                    break;
             }
-        } while (MenuGeneralOption != 0);
+        } while (MenuGeneralOption != 3 && MenuGeneralOption != JOptionPane.CLOSED_OPTION);
     }
+    
 
     ////////////// INICIO HABITACIONES/////
     private static void mostrarMenuHabitaciones() {
         int opcion = 0;
         do {
-
-            opcion = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "=== Menú de Mantenimiento de Habitaciones ===\n"
-                            + "1. Mostrar habitaciones\n"
-                            + "2. Buscar habitación\n"
-                            + "3. Insertar habitación\n"
-                            + "4. Modificar habitación\n"
-                            + "5. Eliminar habitación\n"
-                            + "0. Salir\n"
-                            + "Seleccione una opción: "));
-
+            opcion = JOptionPane.showOptionDialog(null,
+                    "=== Menú de Mantenimiento de Habitaciones ===",
+                    "Menú Habitaciones",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    new Object[]{"Mostrar habitaciones", "Buscar habitación", "Insertar habitación", "Modificar habitación", "Eliminar habitación", "Salir"},
+                    null);
+    
             switch (opcion) {
-                case 1:
+                case 0:
                     gestorHabitaciones.mostrarHabitaciones();
                     break;
-                case 2:
+                case 1:
                     buscarHabitacion();
                     break;
-                case 3:
+                case 2:
                     insertarHabitacion();
                     break;
-                case 4:
+                case 3:
                     modificarHabitacion();
                     break;
-                case 5:
+                case 4:
                     eliminarHabitacion();
                     break;
-                case 0:
+                case 5:
                     JOptionPane.showMessageDialog(null, "Volviendo al menú principal...");
                     break;
-                default:
+                case JOptionPane.CLOSED_OPTION:
                     JOptionPane.showMessageDialog(null, "Opción inválida. Intente nuevamente.");
+                    break;
             }
-        } while (opcion != 0);
+        } while (opcion != 5 && opcion != JOptionPane.CLOSED_OPTION);
     }
+    
 
     private static Habitacion buscarHabitacion() {
         int numero = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de habitación a buscar:"));
@@ -198,38 +194,41 @@ public class Hotel {
     private static void mostrarMenuClientes() {
         int opcionClientes = 0;
         do {
-            opcionClientes = Integer.parseInt(JOptionPane.showInputDialog(null, "=== Menú de Gestión de Clientes ===\n"
-                    + "1. Mostrar clientes\n"
-                    + "2. Buscar cliente\n"
-                    + "3. Registrar cliente\n"
-                    + "4. Modificar cliente\n"
-                    + "5. Eliminar cliente\n"
-                    + "0. Salir"));
-
+            opcionClientes = JOptionPane.showOptionDialog(null,
+                    "=== Menú de Gestión de Clientes ===",
+                    "Menú Clientes",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    new Object[]{"Mostrar clientes", "Buscar cliente", "Registrar cliente", "Modificar cliente", "Eliminar cliente", "Salir"},
+                    null);
+    
             switch (opcionClientes) {
-                case 1:
+                case 0:
                     gestorHabitaciones.mostrarClientes();
                     break;
-                case 2:
+                case 1:
                     buscarCliente();
                     break;
-                case 3:
+                case 2:
                     registrarCliente();
                     break;
-                case 4:
+                case 3:
                     modificarCliente();
                     break;
-                case 5:
+                case 4:
                     eliminarCliente();
                     break;
-                case 0:
+                case 5:
                     JOptionPane.showMessageDialog(null, "Volviendo al menú principal...");
                     break;
-                default:
+                case JOptionPane.CLOSED_OPTION:
                     JOptionPane.showMessageDialog(null, "Opción inválida. Intente nuevamente.");
+                    break;
             }
-        } while (opcionClientes != 0);
+        } while (opcionClientes != 5 && opcionClientes != JOptionPane.CLOSED_OPTION);
     }
+    
 
     private static void registrarCliente() {
         String dni = JOptionPane.showInputDialog(null, "Ingrese el DNI del cliente:");
@@ -321,32 +320,35 @@ public class Hotel {
     private static void mostrarMenuHospedaje() {
         int opcionHospedaje = 0;
         do {
-            opcionHospedaje = Integer.parseInt(JOptionPane.showInputDialog(
-                    "===    Módulo Hospedaje    ===\n" +
-                            "1. Registrar hospedaje\n" +
-                            "2. Consultar Huespedes\n" +
-                            "3. Registrar salida de hospedaje\n" +
-                            "0. Salir\n" +
-                            "Seleccione una opción: "));
-
+            opcionHospedaje = JOptionPane.showOptionDialog(null,
+                    "=== Módulo Hospedaje ===",
+                    "Menú Hospedaje",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    new Object[]{"Registrar hospedaje", "Consultar Huespedes", "Registrar salida de hospedaje", "Salir"},
+                    null);
+    
             switch (opcionHospedaje) {
-                case 1:
+                case 0:
                     registrarHospedaje();
                     break;
-                case 2:
+                case 1:
                     gestorHabitaciones.consultarHospedaje();
                     break;
-                case 3:
+                case 2:
                     registrarsalidaHospedaje();
                     break;
-                case 0:
+                case 3:
                     JOptionPane.showMessageDialog(null, "Volviendo al menú principal...");
                     break;
-                default:
+                case JOptionPane.CLOSED_OPTION:
                     JOptionPane.showMessageDialog(null, "Opción inválida. Intente nuevamente.");
+                    break;
             }
-        } while (opcionHospedaje != 0);
+        } while (opcionHospedaje != 3 && opcionHospedaje != JOptionPane.CLOSED_OPTION);
     }
+    
 
     private static void registrarHospedaje() {
         Cliente cliente;
@@ -400,32 +402,40 @@ public class Hotel {
     private static void registrarsalidaHospedaje() {
         int opcionHospedaje = 0;
         do {
-            opcionHospedaje = Integer.parseInt(JOptionPane.showInputDialog(
-                    "===    Registrar salida de huesped   ===\n" +
-                            "1. Buscar huesped por dni\n" +
-                            "2. Buscar huesped por habitacion\n" +
-                            "0. Salir\n" +
-                            "Seleccione una opción: "));
-
+            opcionHospedaje = JOptionPane.showOptionDialog(null,
+                    "=== Registrar salida de huésped ===",
+                    "Registrar salida",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    new Object[]{"Buscar huésped por DNI", "Buscar huésped por habitación", "Salir"},
+                    null);
+    
             switch (opcionHospedaje) {
-                case 1:
+                case 0:
                     Hospedaje hospedajeDni = buscarHospedajeDni();
-                    insertarHistorial(hospedajeDni);
-                    gestorHabitaciones.eliminarHospedaje(hospedajeDni);
+                    if (hospedajeDni != null) {
+                        insertarHistorial(hospedajeDni);
+                        gestorHabitaciones.eliminarHospedaje(hospedajeDni);
+                    }
+                    break;
+                case 1:
+                    Hospedaje hospedajeHabitacion = buscarHospedajeHabitacion();
+                    if (hospedajeHabitacion != null) {
+                        insertarHistorial(hospedajeHabitacion);
+                        gestorHabitaciones.eliminarHospedaje(hospedajeHabitacion);
+                    }
                     break;
                 case 2:
-                    Hospedaje hospedajeHabitacion = buscarHospedajeHabitacion();
-                    insertarHistorial(hospedajeHabitacion);
-                    gestorHabitaciones.eliminarHospedaje(hospedajeHabitacion);
-                    break;
-                case 0:
                     JOptionPane.showMessageDialog(null, "Volviendo al menú principal...");
                     break;
-                default:
+                case JOptionPane.CLOSED_OPTION:
                     JOptionPane.showMessageDialog(null, "Opción inválida. Intente nuevamente.");
+                    break;
             }
-        } while (opcionHospedaje != 0);
+        } while (opcionHospedaje != 2 && opcionHospedaje != JOptionPane.CLOSED_OPTION);
     }
+    
 
     private static Hospedaje buscarHospedajeDni() {
         String dnicliente = JOptionPane.showInputDialog(null, "Ingrese el dni del huesped a buscar");
